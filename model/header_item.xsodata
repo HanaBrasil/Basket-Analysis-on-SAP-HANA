@@ -1,0 +1,20 @@
+
+service  { 
+
+	"DM_PAL"."br.com.hanabrasil.basket_analysis.data::basket_analysis.header_item"
+	as "HeaderItem"
+	create forbidden
+	update forbidden
+	delete forbidden;
+	
+	"DM_PAL"."br.com.hanabrasil.basket_analysis.data::basket_analysis.tt_pal_apriori_control"
+	as "Control"
+	create forbidden
+	delete forbidden;
+	
+	"DM_PAL"."br.com.hanabrasil.basket_analysis.data::basket_analysis.tt_pal_apriori_result"
+	as "Result"
+	create forbidden
+	delete forbidden;
+	
+}  

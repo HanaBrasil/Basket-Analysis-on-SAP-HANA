@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+    <title>Sell A Priori</title>
+
+  <!-- 1.) Load SAPUI5 (from a remote server), select theme and control library -->
+    <script id="sap-ui-bootstrap"
+        src="https://sapui5.netweaver.ondemand.com/resources/sap-ui-core.js"
+        data-sap-ui-theme="sap_goldreflection"
+        data-sap-ui-libs="sap.ui.commons">
+     </script>
+  	
+  	<script>
+		// create a simple Input field
+		var input_email = new sap.ui.commons.TextField();
+			input_email.setValue("Enter your e-mail");
+			input_email.placeAt("uiArea");
+
+		// create the FileUploader control
+		var file_uploader = new sap.ui.commons.FileUploader( 
+			{
+				value : ".",
+				enabled : true,
+				visible : true,
+				uploadUrl : "file_uploaded.html", // URL to submit the form to
+				name: "file_input",          // name of the input type=file element within the form
+				width : "500px",
+				uploadOnChange : false,
+				// additionalData : string
+				//parameters : sap.ui.commons.FileUploaderParameter[]
+				//Associations
+				//Events
+				//change : fnListenerFunction or [fnListenerFunction, oListenerObject] or [oData, fnListenerFunction, oListenerObject]
+				//uploadComplete : fnListenerFunction or [fnListenerFunction, oListenerObject] or [oData, fnListenerFunction, oListenerObject]
+				uploadComplete: function (oEvent) {
+					var sResponse = oEvent.getParameter("response");
+					if (sResponse) {
+						var m = /^\[(\d\d\d)\]:(.*)$/.exec(sResponse);
+						if (m[1] == "200") {
+							sap.ui.commons.MessageBox.show("Return Code: " + m[1] + "\n" + m[2], "SUCCESS", "Upload Success");
+						} else {
+							sap.ui.commons.MessageBox.show("Return Code: " + m[1] + "\n" + m[2], "ERROR", "Upload Error");
+						}
+					}
+				}
+				
+			}
+		);
+		
+		// attach it to the page
+		file_uploader.placeAt("uiArea");
+		
+		 
+		// create a simple button with some text and a tooltip only
+		var button_submit = new sap.ui.commons.Button({
+			text : "Show me what to sell!",
+			
+			press:function() {
+				// call the upload method
+				file_uploader.upload();
+			}
+			
+		});
+		// attach it to some element in the page
+		button_submit.placeAt("uiArea");
+		
+	</script>
+	
+</head>
+
+<body class="sapUiBody">
+
+    <!-- This is where you place the UI5 button -->
+    <div id="uiArea"></div>
+
+</body>
+
+
+</html>

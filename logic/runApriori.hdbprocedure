@@ -1,0 +1,22 @@
+PROCEDURE "DM_PAL"."br.com.hanabrasil.basket_analysis.logic::runApriori" ( ) 
+	LANGUAGE SQLSCRIPT
+	SQL SECURITY INVOKER 
+	DEFAULT SCHEMA "DM_PAL"
+	AS
+
+BEGIN
+
+delete from "DM_PAL"."br.com.hanabrasil.basket_analysis.data::basket_analysis.tt_pal_apriori_result";
+delete from "DM_PAL"."br.com.hanabrasil.basket_analysis.data::basket_analysis.tt_pal_apriori_pmml";
+
+var_header_item = select * from "DM_PAL"."br.com.hanabrasil.basket_analysis.data::basket_analysis.header_item";
+var_control = select * from "DM_PAL"."br.com.hanabrasil.basket_analysis.data::basket_analysis.tt_pal_apriori_control";
+ 
+CALL "_SYS_AFL"."DM_PAL_APRIORI"( 
+	:var_header_item, 
+	:var_control,
+	"br.com.hanabrasil.basket_analysis.data::basket_analysis.tt_pal_apriori_result", 
+	"br.com.hanabrasil.basket_analysis.data::basket_analysis.tt_pal_apriori_pmml") with overview;
+
+
+END;

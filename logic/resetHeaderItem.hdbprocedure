@@ -1,0 +1,14 @@
+PROCEDURE "DM_PAL"."br.com.hanabrasil.basket_analysis.logic::resetHeaderItem" ( ) 
+	LANGUAGE SQLSCRIPT
+	SQL SECURITY INVOKER 
+	DEFAULT SCHEMA "DM_PAL"
+	-- READS SQL DATA 
+	AS
+BEGIN
+
+delete from "DM_PAL"."br.com.hanabrasil.basket_analysis.data::basket_analysis.header_item";
+delete from "DM_PAL"."br.com.hanabrasil.basket_analysis.data::basket_analysis.tt_pal_apriori_result";
+delete from "DM_PAL"."br.com.hanabrasil.basket_analysis.data::basket_analysis.tt_pal_apriori_pmml";
+
+
+END;

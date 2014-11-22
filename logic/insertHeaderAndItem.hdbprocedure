@@ -1,0 +1,18 @@
+PROCEDURE "DM_PAL"."br.com.hanabrasil.basket_analysis.logic::insertHeaderAndItem" ( 
+	in in_header_id NVARCHAR(30),
+	in in_item_id NVARCHAR(30)
+	) 
+	LANGUAGE SQLSCRIPT
+	SQL SECURITY INVOKER 
+	DEFAULT SCHEMA "DM_PAL"
+	AS
+BEGIN
+
+insert into 
+	"DM_PAL"."br.com.hanabrasil.basket_analysis.data::basket_analysis.header_item" 
+	values 
+		(
+			in_header_id, 
+			in_item_id
+		);
+END;

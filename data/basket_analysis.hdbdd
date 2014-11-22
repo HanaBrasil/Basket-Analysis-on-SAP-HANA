@@ -1,0 +1,112 @@
+namespace br.com.hanabrasil.basket_analysis.data;
+
+@Schema: 'DM_PAL'
+context basket_analysis {
+ 	type ty_id:String(30);
+	
+	type ty_header_id: ty_id;
+	type ty_item_id: ty_id;
+
+@Catalog.tableType: #COLUMN
+	entity header_item{
+		key header_id: ty_header_id;
+		key item_id: ty_item_id;
+	};
+ 
+ // Apriori stuff
+ 
+ 
+ // Apriori Data
+ type ty_pal_apriori_data{
+ 	header_id: ty_header_id;
+	item_id: ty_item_id;
+ };
+ 
+ @Catalog.tableType: #COLUMN
+ entity tt_pal_apriori_data{
+ 	key header_id: type of ty_pal_apriori_data.header_id;
+	key item_id: type of ty_pal_apriori_data.item_id;
+ };
+ 
+ // Apriori Result
+ type ty_pal_result_prerule: String(500);
+ type ty_pal_result_postrule: String(500);
+ type ty_pal_result_support: BinaryFloat;
+ type ty_pal_result_confidence: BinaryFloat;
+ type ty_pal_result_lift: BinaryFloat;
+ 
+ type ty_pal_apriori_result{
+ 	prerule: ty_pal_result_prerule;
+ 	postrule: ty_pal_result_postrule;
+ 	support: ty_pal_result_support;
+ 	confidence: ty_pal_result_confidence;
+ 	lift: ty_pal_result_lift;
+ };
+
+@Catalog.tableType: #COLUMN
+entity tt_pal_apriori_result {
+ 	key prerule: type of ty_pal_apriori_result.prerule;
+ 	key postrule: type of ty_pal_apriori_result.postrule;
+ 	support: type of ty_pal_apriori_result.support;
+ 	confidence: type of ty_pal_apriori_result.confidence;
+ 	lift: type of ty_pal_apriori_result.lift;
+};
+
+// Apriori PMML2
+ type ty_pal_apriori_pmml_id: Integer;
+ type ty_pal_apriori_pmml_model: String(5000);
+ 
+ type ty_pal_apriori_pmml{
+	 id: ty_pal_apriori_pmml_id;
+	 model: ty_pal_apriori_pmml_model;
+ };
+ 
+ @Catalog.tableType: #COLUMN
+ entity tt_pal_apriori_pmml{
+	 key id: type of ty_pal_apriori_pmml.id;
+	 model: type of ty_pal_apriori_pmml.model;
+ };
+
+// Apriori Control 
+ type ty_pal_apriori_control_name: String(100);
+ type ty_pal_apriori_control_intargs: Integer;
+ type ty_pal_apriori_control_doubleargs: BinaryFloat;
+ type ty_pal_apriori_control_stringargs: String(100);
+ 
+ 
+ type ty_pal_apriori_control{
+ 	name : ty_pal_apriori_control_name;
+ 	intargs : ty_pal_apriori_control_intargs;
+ 	doubleargs: ty_pal_apriori_control_doubleargs;
+ 	stringargs : ty_pal_apriori_control_stringargs;
+ };
+ 
+ @Catalog.tableType: #COLUMN
+ entity tt_pal_apriori_control{
+ 	key name : type of ty_pal_apriori_control.name;
+ 	intargs : type of ty_pal_apriori_control.intargs;
+ 	doubleargs: type of ty_pal_apriori_control.doubleargs;
+ 	stringargs : type of ty_pal_apriori_control.stringargs;
+ };
+ 
+ type ty_pal_apriori_pdata_id: Integer;
+ type ty_pal_apriori_pdata_typename: String(100);
+ type ty_pal_apriori_pdata_direction: String(100);
+ 
+
+type ty_pal_apriori_pdata{
+	 id: ty_pal_apriori_pdata_id;
+	 typename: ty_pal_apriori_pdata_typename;
+	 direction: ty_pal_apriori_pdata_direction;
+ };
+ 
+ 
+ @Catalog.tableType: #COLUMN
+ entity tt_pal_apriori_pdata{
+	 key id: type of ty_pal_apriori_pdata.id;
+	 typename:  type of ty_pal_apriori_pdata.typename;
+	 direction:  type of ty_pal_apriori_pdata.direction;
+ };
+ 
+
+};
