@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta http-equiv='Content-Type' content='text/html;charset=UTF-8'/>
+        <title>Basket Analysis</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <script
+				src="../../../../../../../../openui5/openui5-sdk/resources/sap-ui-core-dbg.js" 
+				id="sap-ui-bootstrap"
+				data-sap-ui-libs="sap.m,sap.ui.commons,sap.ui.layout,sap.ui.unified,sap.ui.table"
+				data-sap-ui-theme="sap_bluecrystal">
+		</script>
+		<script>
+
+		sap.ui.localResources("view");
+		var view_user_details = sap.ui.view({id:"view_user_details", viewName:"view.user_details", type:sap.ui.core.mvc.ViewType.JS});
+		var view_file_input = sap.ui.view({id:"view_file_input", viewName:"view.file_input", type:sap.ui.core.mvc.ViewType.JS});
+		var view_options = sap.ui.view({id:"view_options", viewName:"view.options", type:sap.ui.core.mvc.ViewType.JS});
+		var view_result = sap.ui.view({id:"view_result", viewName:"view.result", type:sap.ui.core.mvc.ViewType.JS});
+		
+		var app = new sap.m.App("main_container",{
+			height: "100%",
+			width: "100%",
+			visible: true,
+			pages: [view_user_details, view_file_input,view_options,view_result],
+		});
+
+		var sheel = new sap.m.Shell("shell", {
+			app : app,
+		});
+
+		sheel.placeAt("content");
+
+		</script>
+
+	</head>
+	<body class="sapUiBody" role="application">
+		<div id="content"></div>
+	</body>
+</html>
