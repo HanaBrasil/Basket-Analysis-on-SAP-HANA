@@ -14,6 +14,10 @@ sap.ui.jsview("view.user_details", {
 	*/ 
 	createContent : function(oController) {
 
+		var page = new sap.m.Page({
+			title: "Apriori Example - Step 1/4 - User Details",
+		});
+
 		var oLayout1 = new sap.ui.layout.form.GridLayout({
 			// singleColumn: true,
 		});
@@ -38,9 +42,6 @@ sap.ui.jsview("view.user_details", {
 		);
 
 		var lay_form = new sap.ui.layout.form.Form({
-			title: new sap.ui.core.Title({
-				text: "Apriori Example - Step 1/4 - User Details",
-			}),
 			layout: oLayout1,
 			
 			formContainers: 
@@ -95,7 +96,9 @@ sap.ui.jsview("view.user_details", {
 
 		});
 
-		return lay_form;
+		page.addContent(lay_form);
+
+		return page;
 	
 	},
 		

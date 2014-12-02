@@ -14,23 +14,9 @@ sap.ui.jsview("view.options", {
 	*/ 
 	createContent : function(oController) {
 	
-		
-		var main_layout = new sap.ui.commons.layout.VerticalLayout({
-			content: 
-				[
-					new sap.ui.layout.form.Form({
-						title: new sap.ui.core.Title({
-							text: "Apriori Example - Step 3/4 - Apriori Options",
-						}),
-
-						layout: new sap.ui.layout.form.GridLayout({
-							singleColumn: true,
-						}),
-
-					}),
-				],
-		});
-
+		var main_layout = new sap.m.Page({
+			title: "Apriori Example - Step 3/4 - Apriori Options",
+		});		
 
 		var layout_options = new sap.ui.commons.layout.MatrixLayout({
 			hAlign: sap.ui.commons.layout.HAlign.Center,
@@ -173,8 +159,9 @@ sap.ui.jsview("view.options", {
 								hAlign: sap.ui.commons.layout.HAlign.Center,
 								colSpan: 3,
 								content: [
-									new sap.ui.commons.Button({
-										text: "Save"
+									new sap.m.Button({
+										text: "Save",
+										press: jQuery.proxy(oController.onPressSave, oController),
 									}),
 								]
 							})
@@ -187,62 +174,58 @@ sap.ui.jsview("view.options", {
 
 		});
 
-		main_layout.addContent(layout_options);
+		
 			
 
 		// Apriori control		
-		var tab_control = new sap.ui.table.Table("tab_control", {
-			title : "Apriori Control Data (parameters)",
-			selectionMode : sap.ui.table.SelectionMode.Single,
 
-			columns : [ new sap.ui.table.Column({
-				name : "Name",
-				label : new sap.ui.commons.TextView({
-					text : "Name",
+		var o_name = new sap.m.Text({text: "{NAME}"});
+		var o_intargs = new sap.m.Text({text: "{INTARGS}"});
+		var o_doubleargs = new sap.m.Text({text: "{DOUBLEARGS}"});
+		var o_stringargs = new sap.m.Text({text: "{STRINGARGS}"});
+		
+
+		var oRow = new sap.m.ColumnListItem();
+		oRow.addCell(o_name)
+			.addCell(o_intargs)
+			.addCell(o_doubleargs)
+			.addCell(o_stringargs);
+
+		var tab_control = new sap.m.Table("tab_control", {
+			columns : [ 
+				new sap.m.Column({
+					header : new sap.m.Label({
+						text : "Header",
+					}),
 				}),
-				template : new sap.ui.commons.TextView({
-					text : "{NAME}",
+
+				new sap.m.Column({
+					header : new sap.m.Label({
+						text : "Int Args",
+					}),
 				}),
-			}),
-			new sap.ui.table.Column({
-				name : "Int_Args",
-				label : new sap.ui.commons.TextView({
-					text : "Int Args",
+				
+				new sap.m.Column({
+					header : new sap.m.Label({
+						text : "Double Args",
+					}),
 				}),
-				template : new sap.ui.commons.TextView({
-					text : "{INTARGS}",
+				
+				new sap.m.Column({
+					header : new sap.m.Label({
+						text : "String Args",
+					}),
 				}),
-			}),
-			new sap.ui.table.Column({
-				name : "Double_Args",
-				label : new sap.ui.commons.TextView({
-					text : "Double Args",
-				}),
-				template : new sap.ui.commons.TextView({
-					text : "{DOUBLEARGS}",
-				}),
-			}),
-			new sap.ui.table.Column({
-				name : "String_Args",
-				label : new sap.ui.commons.TextView({
-					text : "String Args",
-				}),
-				template : new sap.ui.commons.TextView({
-					text : "{STRINGARGS}",
-				}),
-			}),
+
 
 			],
 
 		});
 	
-		tab_control.setModel(oController.model);
-		tab_control.bindRows("/Control");
+		tab_control.bindItems("/Control", oRow);
 		
 
-		main_layout.addContent(tab_control);
-
-
+// Navigation
 		var lay_navigation = new sap.ui.commons.layout.HorizontalLayout();
 
 		lay_navigation.addContent(new sap.m.Button({
@@ -257,7 +240,10 @@ sap.ui.jsview("view.options", {
 			})
 		);
 
-
+		
+// Building view
+		main_layout.addContent(layout_options);
+		main_layout.addContent(tab_control);
 		main_layout.addContent(lay_navigation);
 
 

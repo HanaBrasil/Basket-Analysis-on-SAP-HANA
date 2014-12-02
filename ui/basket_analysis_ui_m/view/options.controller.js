@@ -8,9 +8,10 @@ sap.ui.controller("view.options", {
 	 * 
 	 * @memberOf view.options
 	 */
-	// onInit : function() {		
-
-	// },
+	onInit : function() {		
+		this.model = sap.ui.getCore().getModel();
+		sap.ui.getCore().byId("tab_control").setModel(this.model);
+	},
 
 	/**
 	 * Similar to onAfterRendering, but this hook is invoked before the
@@ -42,6 +43,7 @@ sap.ui.controller("view.options", {
 	//
 	// }
 	
+	model: null,
 
 	name_support_slider: "slider_support",
 	name_support_value_holder: "lab_support_value",
@@ -60,6 +62,24 @@ sap.ui.controller("view.options", {
 	onPressNext: function(){
 		var next = sap.ui.getCore().byId("view_result");
 		sap.ui.getCore().byId("main_container").to(next,"slide");
+	},
+
+	onPressSave: function(oControlEvent){
+		var data = {
+			"min_support" : sap.ui.getCore().byId(this.name_support_slider).getValue(),
+			"min_confidence": sap.ui.getCore().byId(this.name_confidence_slider).getValue(),
+			"min_lift": sap.ui.getCore().byId(this.name_lift_slider).getValue(),
+		};
+
+		jQuery.post(
+			"../../services/setOptions.xsjs", 
+			data, 
+			jQuery.proxy(function(data, textStatus, jqXHR){
+				console.log("opa!");
+				this.model.refresh();
+			},this),
+			"html"
+			);
 	},
 
 

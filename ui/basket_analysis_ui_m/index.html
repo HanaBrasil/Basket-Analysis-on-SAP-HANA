@@ -42,6 +42,10 @@
 
 		<script>
 
+			// model
+			var modelURL =  "../../model/header_item.xsodata";
+			sap.ui.getCore().setModel(new sap.ui.model.odata.ODataModel(modelURL));
+
 			sap.ui.localResources("view");
 			var view_user_details = sap.ui.view({id:"view_user_details", viewName:"view.user_details", type:sap.ui.core.mvc.ViewType.JS});
 			var view_file_input = sap.ui.view({id:"view_file_input", viewName:"view.file_input", type:sap.ui.core.mvc.ViewType.JS});
@@ -54,7 +58,6 @@
 				visible: true,
 				pages: [view_user_details, view_file_input,view_options,view_result],
 			});
-
 
 			var sheel = new sap.m.Shell("shell", {
 				app : app,

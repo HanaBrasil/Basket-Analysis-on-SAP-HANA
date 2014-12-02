@@ -9,10 +9,8 @@ sap.ui.controller("view.file_input", {
 	 * @memberOf view.file_input
 	 */
 	onInit : function() {		
-		this.model = new sap.ui.model.odata.ODataModel("../../model/header_item.xsodata");
+		this.model = sap.ui.getCore().getModel();
 		sap.ui.getCore().byId("tab_data").setModel(this.model);
-		
-
 	},
 
 	/**
@@ -48,7 +46,6 @@ sap.ui.controller("view.file_input", {
 
 	model: null,
 
-	modelURL: "../../model/header_item.xsodata",
 	uploadUrl: "../../services/upload_csv.xsjs",
 	resetUrl: "../../services/resetHeaderItem.xsjs",
 

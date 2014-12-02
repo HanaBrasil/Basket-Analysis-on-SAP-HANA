@@ -14,6 +14,10 @@ sap.ui.jsview("view.file_input", {
 	*/ 
 	createContent : function(oController) {
 	
+	var page = new sap.m.Page({
+		title: "Apriori Example - Step 2/4 - File Input",
+	});
+
 	var main_layout = new sap.ui.commons.layout.VerticalLayout();
 
 
@@ -25,9 +29,6 @@ sap.ui.jsview("view.file_input", {
 	    // var oLayout3 = new sap.ui.layout.form.ResponsiveGridLayout();
 
 		var lay_form = new sap.ui.layout.form.Form({
-			title: new sap.ui.core.Title({
-				text: "Apriori Example - Step 2/4 - File Input",
-			}),
 
 			layout: oLayout1,
 			
@@ -139,7 +140,8 @@ sap.ui.jsview("view.file_input", {
 		main_layout.addContent(tab_data);
 		main_layout.addContent(lay_navigation);
 
-		return main_layout;
+		page.addContent(main_layout);
+		return page;
 
 	},
 		

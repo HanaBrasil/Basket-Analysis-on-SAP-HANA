@@ -1,0 +1,27 @@
+PROCEDURE "DM_PAL"."br.com.hanabrasil.basket_analysis.logic::setOptions" ( 
+		in in_min_support double,
+		in in_min_confidence double, 
+		in in_min_lift double) 
+	LANGUAGE SQLSCRIPT
+	SQL SECURITY INVOKER 
+	DEFAULT SCHEMA "DM_PAL"
+	--READS SQL DATA
+	 AS
+BEGIN
+ 
+ update "DM_PAL"."br.com.hanabrasil.basket_analysis.data::basket_analysis.tt_pal_apriori_control"
+ 	set doubleargs = in_min_support 
+ 	where
+ 		name= 'MIN_SUPPORT'; 
+ 
+ update "DM_PAL"."br.com.hanabrasil.basket_analysis.data::basket_analysis.tt_pal_apriori_control"
+ 	set doubleargs = in_min_confidence
+ 	where
+ 		name= 'MIN_CONFIDENCE'; 
+ 
+ update "DM_PAL"."br.com.hanabrasil.basket_analysis.data::basket_analysis.tt_pal_apriori_control"
+ 	set doubleargs = in_min_lift
+ 	where
+ 		name= 'MIN_LIFT'; 
+ 
+END;

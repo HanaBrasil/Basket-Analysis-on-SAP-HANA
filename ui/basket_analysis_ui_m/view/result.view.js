@@ -14,25 +14,10 @@ sap.ui.jsview("view.result", {
 	*/ 
 	createContent : function(oController) {
 	
+		var main_layout = new sap.m.Page({
+			title: "Apriori Example - Step 4/4 - Basket Analysis Result",
+		});	
 		
-		var main_layout = new sap.ui.commons.layout.VerticalLayout({
-			content: 
-				[
-					new sap.ui.layout.form.Form({
-						title: new sap.ui.core.Title({
-							text: "Apriori Example - Step 4/4 - Basket Analysis Result",
-						}),
-
-						layout: new sap.ui.layout.form.GridLayout({
-							singleColumn: true,
-						}),
-
-					}),
-				],
-		});
-
-
-
 		// Apriori result controls
 
 		var tab_result = new sap.ui.table.Table("tab_result", {
@@ -94,8 +79,6 @@ sap.ui.jsview("view.result", {
 		tab_result.bindRows("/Result");
 
 		main_layout.addContent(tab_result);
-
-
 
 		var lay_navigation = new sap.ui.commons.layout.HorizontalLayout();
 
