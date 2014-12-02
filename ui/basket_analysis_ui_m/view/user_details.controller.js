@@ -42,4 +42,34 @@ sap.ui.controller("view.user_details", {
 	//
 	// }
 	
+
+	onPressBack: function(){
+		// var back = sap.ui.getCore().byId("user_details");
+		// sap.ui.getCore().byId("main_container").back(back,"slide");
+	},
+
+	onPressNext: function(){
+
+		if (this.validateInput()) {
+			var next = sap.ui.getCore().byId("view_file_input");
+			sap.ui.getCore().byId("main_container").to(next,"slide");
+
+		};
+		
+	},
+
+	validateInput: function(){
+		var name = sap.ui.getCore().byId("txf_name").getValue();
+		var email = sap.ui.getCore().byId("txf_email").getValue();
+
+
+		if (name != "" &&
+			email != "") {
+			return true;
+		}else{
+			return false;
+		};
+		
+	},
+
 });

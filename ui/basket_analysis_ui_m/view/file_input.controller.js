@@ -8,9 +8,12 @@ sap.ui.controller("view.file_input", {
 	 * 
 	 * @memberOf view.file_input
 	 */
-	// onInit : function() {		
+	onInit : function() {		
+		this.model = new sap.ui.model.odata.ODataModel("../../model/header_item.xsodata");
+		sap.ui.getCore().byId("tab_data").setModel(this.model);
+		
 
-	// },
+	},
 
 	/**
 	 * Similar to onAfterRendering, but this hook is invoked before the
@@ -41,5 +44,42 @@ sap.ui.controller("view.file_input", {
 	// onExit: function() {
 	//
 	// }
+
+
+	model: null,
+
+	modelURL: "../../model/header_item.xsodata",
+	uploadUrl: "../../services/upload_csv.xsjs",
+	resetUrl: "../../services/resetHeaderItem.xsjs",
+
+	onPressBack: function(){
+		var back = sap.ui.getCore().byId("user_details");
+		sap.ui.getCore().byId("main_container").back(back,"slide");
+	},
+
+	onPressNext: function(){
+		var next = sap.ui.getCore().byId("view_options");
+		sap.ui.getCore().byId("main_container").to(next,"slide");
+	},
+
+
+	onPressReset: function(){
+		jQuery.get(this.resetUrl, {}, function(data, textStatus, jqXHR) {
+			// sap.ui.getCore().byId("txv_response").setText(data);
+		});
+		this.model.refresh();
+	},
+
+	onUploadComplete: function(oControlEvent) {
+		// sap.ui.getCore().byId("txv_response").setText(oControlEvent.getParameters().response);
+		this.model.refresh();
+	},
+
 	
+
+
+	
+
+	// runAprioriUrl : "../../../services/runApriori.xsjs",
+
 });

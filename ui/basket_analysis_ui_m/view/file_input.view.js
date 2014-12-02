@@ -35,7 +35,7 @@ sap.ui.jsview("view.file_input", {
 				[
 					new sap.ui.layout.form.FormContainer({
 						title: "Import file",
-						formElements: 
+						formElements:
 							[
 								new sap.ui.layout.form.FormElement({
 									label: "File path",
@@ -52,13 +52,26 @@ sap.ui.jsview("view.file_input", {
 
 													new sap.ui.unified.FileUploader("fup_csv",{
 														buttonText: "Upload",
+														uploadOnChange: false,
+														sendXHR : true,
+														uploadUrl: oController.uploadUrl,
+														uploadComplete: jQuery.proxy(oController.onUploadComplete,oController),
+														change: function(oControlEvent){
+															this.upload();
+														},
 													}),
 
 													new sap.ui.commons.CheckBox({
 														checked: true,
 														name: "chk_header",
-														text: "File contains header"
-													})
+														text: "File contains header",
+													}),
+
+													new sap.m.Button({
+														text: "Reset",
+														press : jQuery.proxy(oController.onPressReset,oController),
+													}),
+
 													]
 											}),
 											
@@ -74,80 +87,60 @@ sap.ui.jsview("view.file_input", {
 
 
 // Uploaded Data Controls 
-		var tab_data = new sap.ui.table.Table("tab_data", {
-			title : "Uploaded Data",
-			selectionMode : sap.ui.table.SelectionMode.Single,
+		
+		// row template
 
-			columns : [ new sap.ui.table.Column({
-				name : "Header",
-				label : new sap.ui.commons.TextView({
-					text : "Header",
-				}),
-				template : new sap.ui.commons.TextView({
-					text : "{HEADER_ID}",
-				}),
-			}),
+		// cells
+		var o_header = new sap.m.Text({text: "{HEADER_ID}"});
+		var o_item = new sap.m.Text({text: "{ITEM_ID}"});
+		
 
-			new sap.ui.table.Column({
-				name : "Item",
-				label : new sap.ui.commons.TextView({
-					text : "Item",
+		var oRow = new sap.m.ColumnListItem();
+		oRow.addCell(o_header).addCell(o_item);
+
+		var tab_data = new sap.m.Table("tab_data", {
+			fixedLayout : true,
+			columns : [ 
+				new sap.m.Column({
+					header : new sap.m.Label({
+						text : "Header",
+					}),
 				}),
-				template : new sap.ui.commons.TextView({
-					text : "{ITEM_ID}",
+
+				new sap.m.Column({
+					header : new sap.m.Label({
+						text : "Item",
+					}),
 				}),
-			}),
 
 			],
 
 		});
 	
-		tab_data.setModel(oController.model);
-		tab_data.bindRows("/HeaderItem");
-		
-		main_layout.addContent(lay_form);
-		main_layout.addContent(tab_data);
-		main_layout.addContent(
-			new sap.m.Button({
-				text: "Go",
-				press: jQuery.proxy(function(){
-					var next = sap.ui.getCore().byId("view_options");
-					sap.ui.getCore().byId("main_container").to(next,"flip");
-				},this)
+		tab_data.bindItems("/HeaderItem", oRow);
+
+// Navigation
+		var lay_navigation = new sap.ui.commons.layout.HorizontalLayout();
+
+		lay_navigation.addContent(new sap.m.Button({
+				text: "Back",
+				press: jQuery.proxy(oController.onPressBack,this),
 			})
 		);
 
+		lay_navigation.addContent(new sap.m.Button({
+				text: "Go",
+				press: jQuery.proxy(oController.onPressNext,this),
+			})
+		);
+
+// build view
+		main_layout.addContent(lay_form);
+		main_layout.addContent(tab_data);
+		main_layout.addContent(lay_navigation);
+
 		return main_layout;
 
-		
-		
-		// // Upload controls
-		// var layout_upload = new sap.ui.commons.layout.HorizontalLayout();
-
-		// var fup_csv = new sap.ui.commons.FileUploader("fup_csv", {
-		// 	name : "fup_csv",
-		// 	uploadUrl: oController.uploadUrl,
-		// 	change : oController.onFileChanged,
-		// 	uploadComplete : jQuery.proxy(oController.onUploadComplete,oController),
-		// });
-
-		// layout_upload.addContent(fup_csv);
-
-		// layout_upload.addContent(new sap.ui.commons.Button({
-		// 	text : "Upload",
-		// 	tooltip : "Upload data",
-		// 	press : jQuery.proxy(oController.onPressUpload,oController),
-		// }));
-		
-
-		// layout_upload.addContent(new sap.ui.commons.TextView("txv_response", {
-		// 	text : "Server response",
-		// 	design : sap.ui.commons.TextViewDesign.Bold
-		// }));
-		
-		
-		
-		// return main_layout;
 	},
 		
 });

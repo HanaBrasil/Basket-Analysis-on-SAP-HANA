@@ -41,5 +41,17 @@ sap.ui.controller("view.result", {
 	// onExit: function() {
 	//
 	// }
+
+
+	onPressBack: function(){
+		var back = sap.ui.getCore().byId("options");
+		sap.ui.getCore().byId("main_container").back(back,"slide");
+	},
+
+	onPressNext: function(){
+		// var next = sap.ui.getCore().byId("view_result");
+		// sap.ui.getCore().byId("main_container").to(next,"slide");
+	},
+
 	
 });

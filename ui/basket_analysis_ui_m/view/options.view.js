@@ -35,7 +35,7 @@ sap.ui.jsview("view.options", {
 		var layout_options = new sap.ui.commons.layout.MatrixLayout({
 			hAlign: sap.ui.commons.layout.HAlign.Center,
 			width: "100%",
-			columns: 2,
+			columns: 3,
 			rows: 
 				[
 					new sap.ui.commons.layout.MatrixLayoutRow({
@@ -52,15 +52,25 @@ sap.ui.jsview("view.options", {
 							new sap.ui.commons.layout.MatrixLayoutCell({
 								hAlign: sap.ui.commons.layout.HAlign.Center,
 								content: [
-									new sap.ui.commons.Slider({
-										width: "90%",
+									new sap.m.Slider(oController.name_support_slider,{
 										min: 0,
 										max: 1,
 										value: 0.2,
+										step: 0.01,
+										liveChange: jQuery.proxy(oController.onLiveChange,oController),
+									}),
+									
+								]
+							}),
+
+							new sap.ui.commons.layout.MatrixLayoutCell({
+								hAlign: sap.ui.commons.layout.HAlign.Center,
+								content: [
+									new sap.m.Label(oController.name_support_value_holder, {
+										text: "0.2",
 									}),
 								]
-							})
-							
+							}),
 
 						],
 					}),
@@ -79,14 +89,25 @@ sap.ui.jsview("view.options", {
 							new sap.ui.commons.layout.MatrixLayoutCell({
 								hAlign: sap.ui.commons.layout.HAlign.Center,
 								content: [
-									new sap.ui.commons.Slider({
-										width: "90%",
+									new sap.m.Slider(oController.name_confidence_slider,{
 										min: 0,
 										max: 1,
 										value: 0.2,
+										step: 0.01,
+										liveChange: jQuery.proxy(oController.onLiveChange,oController),
 									}),
 								]
-							})
+							}),
+
+							new sap.ui.commons.layout.MatrixLayoutCell({
+								hAlign: sap.ui.commons.layout.HAlign.Center,
+								content: [
+									new sap.m.Label(oController.name_confidence_value_holder, {
+										text: "0.2",
+									}),
+								]
+							}),
+
 							
 
 						],
@@ -106,14 +127,25 @@ sap.ui.jsview("view.options", {
 							new sap.ui.commons.layout.MatrixLayoutCell({
 								hAlign: sap.ui.commons.layout.HAlign.Center,
 								content: [
-									new sap.ui.commons.Slider({
-										width: "90%",
+									new sap.m.Slider(oController.name_lift_slider,{
 										min: 0,
 										max: 10,
-										value: 1,
+										value: 2,
+										step: 0.5,
+										liveChange: jQuery.proxy(oController.onLiveChange,oController),
 									}),
 								]
-							})
+							}),
+
+							new sap.ui.commons.layout.MatrixLayoutCell({
+								hAlign: sap.ui.commons.layout.HAlign.Center,
+								content: [
+									new sap.m.Label(oController.name_lift_value_holder, {
+										text: "2",
+									}),
+								]
+							}),
+
 							
 
 						],
@@ -123,7 +155,7 @@ sap.ui.jsview("view.options", {
 						cells: [
 							new sap.ui.commons.layout.MatrixLayoutCell({
 								hAlign: sap.ui.commons.layout.HAlign.Center,
-								colSpan: 2,
+								colSpan: 3,
 								content: [
 									new sap.ui.commons.CheckBox({
 										text: "Export PMML?"
@@ -139,7 +171,7 @@ sap.ui.jsview("view.options", {
 						cells: [
 							new sap.ui.commons.layout.MatrixLayoutCell({
 								hAlign: sap.ui.commons.layout.HAlign.Center,
-								colSpan: 2,
+								colSpan: 3,
 								content: [
 									new sap.ui.commons.Button({
 										text: "Save"
@@ -211,14 +243,22 @@ sap.ui.jsview("view.options", {
 		main_layout.addContent(tab_control);
 
 
-		main_layout.addContent(
-			new sap.ui.commons.Button({
-				text: "Next",
-				press: jQuery.proxy(function(){
-					var next = sap.ui.getCore().byId("view_result");
-					sap.ui.getCore().byId("main_container").to(next,"slide");
-				},this)
-			}));
+		var lay_navigation = new sap.ui.commons.layout.HorizontalLayout();
+
+		lay_navigation.addContent(new sap.m.Button({
+				text: "Back",
+				press: jQuery.proxy(oController.onPressBack,this),
+			})
+		);
+
+		lay_navigation.addContent(new sap.m.Button({
+				text: "Go",
+				press: jQuery.proxy(oController.onPressNext,this),
+			})
+		);
+
+
+		main_layout.addContent(lay_navigation);
 
 
 		return main_layout;

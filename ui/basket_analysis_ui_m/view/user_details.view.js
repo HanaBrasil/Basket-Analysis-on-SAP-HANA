@@ -21,6 +21,22 @@ sap.ui.jsview("view.user_details", {
 	    // var oLayout2 = new sap.ui.layout.form.ResponsiveLayout();
 	    // var oLayout3 = new sap.ui.layout.form.ResponsiveGridLayout();
 
+
+		var lay_navigation = new sap.ui.commons.layout.HorizontalLayout();
+		lay_navigation.addStyleClass("layout_navigation");
+		
+		lay_navigation.addContent(new sap.m.Button({
+				text: "Back",
+				press: jQuery.proxy(oController.onPressBack,oController),
+			})
+		);
+
+		lay_navigation.addContent(new sap.m.Button({
+				text: "Go",
+				press: jQuery.proxy(oController.onPressNext,oController),
+			})
+		);
+
 		var lay_form = new sap.ui.layout.form.Form({
 			title: new sap.ui.core.Title({
 				text: "Apriori Example - Step 1/4 - User Details",
@@ -37,7 +53,10 @@ sap.ui.jsview("view.user_details", {
 									fields: 
 										[
 											// new sap.ui.commons.Label({text:"Name"}),
-							                new sap.ui.commons.TextField(),
+							                new sap.ui.commons.TextField("txf_name", {
+							                	required: true,
+							                	value: "Fabio Pagoti",
+							                }),
 										]
 								})
 							]
@@ -50,7 +69,10 @@ sap.ui.jsview("view.user_details", {
 									label: "E-mail",
 									fields: 
 										[
-							                new sap.ui.commons.TextField({}),
+							                new sap.ui.commons.TextField("txf_email", {
+							                	required: true,
+							                	value: "fabiopagoti@gmail.com",
+							                }),
 										]
 								})
 							]
@@ -62,13 +84,7 @@ sap.ui.jsview("view.user_details", {
 								new sap.ui.layout.form.FormElement({
 									fields: 
 										[
-											new sap.m.Button({
-												text: "Go",
-												press: jQuery.proxy(function(){
-													var next = sap.ui.getCore().byId("view_file_input");
-													sap.ui.getCore().byId("main_container").to(next,"slide");
-												},this)
-											})
+											lay_navigation
 										]
 								})
 							]

@@ -93,8 +93,27 @@ sap.ui.jsview("view.result", {
 		tab_result.setModel(oController.model);
 		tab_result.bindRows("/Result");
 
-
 		main_layout.addContent(tab_result);
+
+
+
+		var lay_navigation = new sap.ui.commons.layout.HorizontalLayout();
+
+		lay_navigation.addContent(new sap.m.Button({
+				text: "Back",
+				press: jQuery.proxy(oController.onPressBack,this),
+			})
+		);
+
+		lay_navigation.addContent(new sap.m.Button({
+				text: "Go",
+				press: jQuery.proxy(oController.onPressNext,this),
+			})
+		);
+
+
+		main_layout.addContent(lay_navigation);
+		
 		return main_layout;
 
 	},

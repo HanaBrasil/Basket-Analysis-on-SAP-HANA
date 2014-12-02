@@ -8,16 +8,19 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<!--
+        <link rel="stylesheet" type="text/css" href="style/style.css">
+
+
+<!-- 
         <script
 				src="../../../../../../../../openui5/openui5-sdk/resources/sap-ui-core-dbg.js" 
 				id="sap-ui-bootstrap"
 				data-sap-ui-libs="sap.m,sap.ui.commons,sap.ui.layout,sap.ui.unified,sap.ui.table"
 				data-sap-ui-theme="sap_bluecrystal">
 		</script>
--->
 
 
+ -->
 
         <script
 				src="https://openui5.hana.ondemand.com/resources/sap-ui-core.js" 
@@ -26,6 +29,16 @@
 				data-sap-ui-theme="sap_bluecrystal">
 		</script>
 
+
+
+<!--
+		<script
+				src="/sap/ui5/1/resources/sap-ui-core.js" 
+				id="sap-ui-bootstrap"
+				data-sap-ui-libs="sap.m,sap.ui.commons,sap.ui.layout,sap.ui.unified,sap.ui.table"
+				data-sap-ui-theme="sap_bluecrystal">
+		</script>
+-->
 
 		<script>
 
@@ -41,6 +54,7 @@
 				visible: true,
 				pages: [view_user_details, view_file_input,view_options,view_result],
 			});
+
 
 			var sheel = new sap.m.Shell("shell", {
 				app : app,
