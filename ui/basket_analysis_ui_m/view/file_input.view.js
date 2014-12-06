@@ -58,12 +58,19 @@ sap.ui.jsview("view.file_input", {
 														uploadUrl: oController.uploadUrl,
 														uploadComplete: jQuery.proxy(oController.onUploadComplete,oController),
 														change: function(oControlEvent){
+															this.destroyHeaderParameters();
+															this.addHeaderParameter(
+																new sap.ui.unified.FileUploaderParameter({
+																	name: "hasHeader",
+																	value: sap.ui.getCore().byId("chk_header").getSelected()
+																})
+															);
 															this.upload();
 														},
 													}),
 
-													new sap.ui.commons.CheckBox({
-														checked: true,
+													new sap.m.CheckBox("chk_header", {
+														selected: false,
 														name: "chk_header",
 														text: "File contains header",
 													}),

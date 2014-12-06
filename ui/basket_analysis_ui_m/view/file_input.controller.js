@@ -61,9 +61,14 @@ sap.ui.controller("view.file_input", {
 
 
 	onPressReset: function(){
-		jQuery.get(this.resetUrl, {}, function(data, textStatus, jqXHR) {
+		jQuery.get(
+			this.resetUrl,
+			{}, 
+			function(data, textStatus, jqXHR) {
 			// sap.ui.getCore().byId("txv_response").setText(data);
-		});
+			}
+		);
+		sap.ui.getCore().byId("fup_csv").clear();
 		this.model.refresh();
 	},
 
@@ -71,11 +76,6 @@ sap.ui.controller("view.file_input", {
 		// sap.ui.getCore().byId("txv_response").setText(oControlEvent.getParameters().response);
 		this.model.refresh();
 	},
-
-	
-
-
-	
 
 	// runAprioriUrl : "../../../services/runApriori.xsjs",
 

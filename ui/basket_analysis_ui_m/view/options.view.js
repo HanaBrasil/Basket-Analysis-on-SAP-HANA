@@ -41,7 +41,7 @@ sap.ui.jsview("view.options", {
 									new sap.m.Slider(oController.name_support_slider,{
 										min: 0,
 										max: 1,
-										value: 0.2,
+										value: 0.10,
 										step: 0.01,
 										liveChange: jQuery.proxy(oController.onLiveChange,oController),
 									}),
@@ -53,7 +53,7 @@ sap.ui.jsview("view.options", {
 								hAlign: sap.ui.commons.layout.HAlign.Center,
 								content: [
 									new sap.m.Label(oController.name_support_value_holder, {
-										text: "0.2",
+										text: "0.1",
 									}),
 								]
 							}),
@@ -78,7 +78,7 @@ sap.ui.jsview("view.options", {
 									new sap.m.Slider(oController.name_confidence_slider,{
 										min: 0,
 										max: 1,
-										value: 0.2,
+										value: 0.30,
 										step: 0.01,
 										liveChange: jQuery.proxy(oController.onLiveChange,oController),
 									}),
@@ -89,7 +89,7 @@ sap.ui.jsview("view.options", {
 								hAlign: sap.ui.commons.layout.HAlign.Center,
 								content: [
 									new sap.m.Label(oController.name_confidence_value_holder, {
-										text: "0.2",
+										text: "0.30",
 									}),
 								]
 							}),
@@ -116,8 +116,8 @@ sap.ui.jsview("view.options", {
 									new sap.m.Slider(oController.name_lift_slider,{
 										min: 0,
 										max: 10,
-										value: 2,
-										step: 0.5,
+										value: 0.8,
+										step: 0.01,
 										liveChange: jQuery.proxy(oController.onLiveChange,oController),
 									}),
 								]
@@ -127,7 +127,7 @@ sap.ui.jsview("view.options", {
 								hAlign: sap.ui.commons.layout.HAlign.Center,
 								content: [
 									new sap.m.Label(oController.name_lift_value_holder, {
-										text: "2",
+										text: "0.8",
 									}),
 								]
 							}),

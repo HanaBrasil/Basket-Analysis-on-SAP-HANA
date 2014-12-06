@@ -18,68 +18,72 @@ sap.ui.jsview("view.result", {
 			title: "Apriori Example - Step 4/4 - Basket Analysis Result",
 		});	
 		
+
+		var but_run = new sap.m.Button({
+			text: "Run Basket Analysis",
+			press: jQuery.proxy(oController.onPressRunBasketAnalysis, oController),
+		});
+
 		// Apriori result controls
 
-		var tab_result = new sap.ui.table.Table("tab_result", {
-			title : "Apriori Result",
-			selectionMode : sap.ui.table.SelectionMode.Single,
+		var o_prerule = new sap.m.Text({text: "{PRERULE}"});
+		var o_postrule = new sap.m.Text({text: "{POSTRULE}"});
+		var o_support = new sap.m.Text({text: "{SUPPORT}"});
+		var o_confidence = new sap.m.Text({text: "{CONFIDENCE}"});
+		var o_lift = new sap.m.Text({text: "{LIFT}"});
+		
 
-			columns : [ new sap.ui.table.Column({
-				name : "Prerule",
-				label : new sap.ui.commons.TextView({
-					text : "Prerule",
-				}),
-				template : new sap.ui.commons.TextView({
-					text : "{PRERULE}",
-				}),
-			}),
-			new sap.ui.table.Column({
-				name : "Postrule",
-				label : new sap.ui.commons.TextView({
-					text : "Postrule",
-				}),
-				template : new sap.ui.commons.TextView({
-					text : "{POSTRULE}",
-				}),
-			}),
-			new sap.ui.table.Column({
-				name : "Support",
-				label : new sap.ui.commons.TextView({
-					text : "Support",
-				}),
-				template : new sap.ui.commons.TextView({
-					text : "{SUPPORT}",
-				}),
-			}),
-			new sap.ui.table.Column({
-				name : "Confidence",
-				label : new sap.ui.commons.TextView({
-					text : "Confidence",
-				}),
-				template : new sap.ui.commons.TextView({
-					text : "{CONFIDENCE}",
-				}),
-			}),
-			new sap.ui.table.Column({
-				name : "Lift",
-				label : new sap.ui.commons.TextView({
-					text : "Lift",
-				}),
-				template : new sap.ui.commons.TextView({
-					text : "{LIFT}",
-				}),
-			}),
+		var oRow = new sap.m.ColumnListItem();
+		oRow.addCell(o_prerule)
+			.addCell(o_postrule)
+			.addCell(o_support)
+			.addCell(o_confidence)
+			.addCell(o_lift);
 
-			
+		var tab_result = new sap.m.Table("tab_result", {
+			columns : [ 
+				new sap.m.Column({
+					header : new sap.m.Label({
+						text : "Pre Rule",
+					}),
+				}),
+
+				new sap.m.Column({
+					header : new sap.m.Label({
+						text : "Post Rule",
+					}),
+				}),
+				
+				new sap.m.Column({
+					header : new sap.m.Label({
+						text : "Support",
+					}),
+				}),
+				
+				new sap.m.Column({
+					header : new sap.m.Label({
+						text : "Confidence",
+					}),
+				}),
+
+				new sap.m.Column({
+					header : new sap.m.Label({
+						text : "Lift",
+					}),
+				}),
+
 			],
 
 		});
 	
-		tab_result.setModel(oController.model);
-		tab_result.bindRows("/Result");
+		tab_result.bindItems(
+			"/Result",
+			 oRow,
+			 new sap.ui.model.Sorter("LIFT", true)
+			 );
 
-		main_layout.addContent(tab_result);
-
+		
+// Navigation
 		var lay_navigation = new sap.ui.commons.layout.HorizontalLayout();
 
 		lay_navigation.addContent(new sap.m.Button({
@@ -94,7 +98,9 @@ sap.ui.jsview("view.result", {
 			})
 		);
 
-
+// build view
+	 	main_layout.addContent(but_run);
+		main_layout.addContent(tab_result);
 		main_layout.addContent(lay_navigation);
 		
 		return main_layout;

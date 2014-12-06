@@ -8,9 +8,11 @@ sap.ui.controller("view.result", {
 	 * 
 	 * @memberOf view.result
 	 */
-	// onInit : function() {		
-
-	// },
+	onInit : function() {		
+		this.model = sap.ui.getCore().getModel();
+		sap.ui.getCore().byId("tab_result").setModel(this.model);
+		this.model.refresh();
+	},
 
 	/**
 	 * Similar to onAfterRendering, but this hook is invoked before the
@@ -42,6 +44,9 @@ sap.ui.controller("view.result", {
 	//
 	// }
 
+	model: null,
+
+	runAprioriUrl : "../../services/runApriori.xsjs",
 
 	onPressBack: function(){
 		var back = sap.ui.getCore().byId("options");
@@ -53,5 +58,18 @@ sap.ui.controller("view.result", {
 		// sap.ui.getCore().byId("main_container").to(next,"slide");
 	},
 
+	onPressRunBasketAnalysis : function() {
+		jQuery.get(
+			this.runAprioriUrl, 
+			{},
+			jQuery.proxy(
+				function(data, textStatus, jqXHR) {
+					// sap.ui.getCore().byId("txv_response").setText(data);
+					this.model.refresh();	
+				},
+			this)
+		);
+		
+	},
 	
 });
